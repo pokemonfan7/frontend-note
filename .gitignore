@@ -1,0 +1,22 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/dist.tar.gz
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+
+# IDE - VSCode
+/.vscode
+
+# misc
+package-lock.json
+yarn-error.log
+
+# System Files
+.DS_Store
+Thumbs.db
