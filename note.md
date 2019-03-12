@@ -28,6 +28,14 @@ postcss-loader需在css-loader前执行
 ### 压缩css
 在npmjs.com搜索mini-css-extract-plugin查看文档
 
+##babel
+es6语法转化为es5
+安装 babel-loader @babel/core @babel/preset-env
+
+类、装饰器等语法需要额外的插件进行转换，查询网址babeljs.io:
+类: @babel/plugin-proposal-class-properties
+装饰器: @babel/plugin-proposal-decorators
+
 ## 插件
 - html-webpack-plugin 将打包的js文件引入html
 - mini-css-extract-plugin 将css抽离成单独文件
