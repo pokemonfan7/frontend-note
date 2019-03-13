@@ -36,6 +36,23 @@ es6语法转化为es5
 类: @babel/plugin-proposal-class-properties
 装饰器: @babel/plugin-proposal-decorators
 
+@babel/plugin-transform-runtime -D
+@babel/runtime (不加-D)
+@babel/polyfill (不加-D)
+
+## eslint
+eslint.org
+yarn add eslint eslint-loader
+
+## expose-loader
+暴露全局的loader, 例如jquery, 访问window.$
+
+## file-loader
+处理图片
+
+## url-loader
+当我们的图片小于多少K的时候，用base64转换,否则用file-loader
+
 ## 插件
 - html-webpack-plugin 将打包的js文件引入html
 - mini-css-extract-plugin 将css抽离成单独文件

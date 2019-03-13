@@ -20,5 +20,9 @@
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.1"
+  },
+  "dependencies": {
+    "eslint": "^5.15.1",
+    "eslint-loader": "^2.1.2"
   }
 }
