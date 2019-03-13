@@ -53,6 +53,35 @@ yarn add eslint eslint-loader
 ## url-loader
 当我们的图片小于多少K的时候，用base64转换,否则用file-loader
 
+## 多入口webpack.config.js
+```javascript
+let path = require('path')
+module.exports  = {
+	mode: 'development',
+	entry: {
+		home: './src/index.js',
+		other: './src/other.js',
+	},
+	output: {
+		// [name] home other
+		filename: '[name].js',
+		path: path.resolve(__dirname, 'dist')
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: './index.html',
+			filename: 'home.html',
+			chunks: ['home']
+		}),
+		new HtmlWebpackPlugin({
+			template: './index.html',
+			filename: 'other.html',
+			chunks: ['home', 'other']
+		})
+	]
+}
+```
+
 ## 插件
 - html-webpack-plugin 将打包的js文件引入html
 - mini-css-extract-plugin 将css抽离成单独文件
