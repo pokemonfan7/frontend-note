@@ -10,6 +10,7 @@ module.exports = {
 	output: {
 		filename: 'bundle.[hash:8].js', //打包后的文件名
 		path: path.resolve(__dirname, 'dist'), //路径必须是一个绝对路径
+		// publicPath: 'pokemonfan7.com'
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
@@ -18,7 +19,7 @@ module.exports = {
 			hash: true
 		}),
 		new MiniCssExtractPlugin({
-			filename: 'main.css'
+			filename: 'css/main.css'
 		})
 	],
 	module: {
@@ -43,7 +44,8 @@ module.exports = {
 				use: {
 					loader: 'url-loader',
 					options: {
-						limit: 200*1024
+						limit: 200*1024,
+						outputPath: '/img/'
 					}
 				}
 			},
