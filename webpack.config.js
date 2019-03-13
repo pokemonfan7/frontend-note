@@ -23,6 +23,30 @@ module.exports = {
 	],
 	module: {
 		rules: [
+			// {
+			// 	test: /\.js$/,
+			// 	use: {
+			// 		loader: 'eslint-loader',
+			// 		options: {
+			// 			enforce: 'pre' //前置
+			// 		}
+			// 	},
+			// },
+			// {
+			// 	test: /\.(png|jpg|gif)$/,
+			// 	use: {
+			// 		loader: 'file-loader'
+			// 	}
+			// },
+			{
+				test: /\.(png|jpg|gif)$/,
+				use: {
+					loader: 'url-loader',
+					options: {
+						limit: 200*1024
+					}
+				}
+			},
 			{
 				test: /\.js$/,
 				use: {
@@ -32,7 +56,9 @@ module.exports = {
 							'@babel/preset-env'
 						]
 					}
-				}
+				},
+				include: path.resolve(__dirname, 'src'),
+				exclude: /node_modules/
 			},
 			{
 				test: /\.css$/,
