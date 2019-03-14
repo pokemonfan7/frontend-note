@@ -82,6 +82,13 @@ module.exports  = {
 }
 ```
 
+
+## devtool
+1. source-map: 增加映射文件，用于调试源代码
+2. eval-source-map: 不会产生单独的文件
+3. cheap-module-source-map: 不会产生列，但是是一个单独的映射文件
+4. cheap-module-eval-source-map: 不会产生文件，集成在打包后的文件中 不会产生列
+
 ## 插件
 - html-webpack-plugin 将打包的js文件引入html
 - mini-css-extract-plugin 将css抽离成单独文件
