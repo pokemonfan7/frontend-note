@@ -89,8 +89,42 @@ module.exports  = {
 3. cheap-module-source-map: 不会产生列，但是是一个单独的映射文件
 4. cheap-module-eval-source-map: 不会产生文件，集成在打包后的文件中 不会产生列
 
+## watch
+实时监控打包文件
+```
+watchOptions: { //监控选项
+	poll: 1000, //每秒问我1000次
+	aggregateTimeout: 500, //防抖
+	ignored: /node_modules/ //不需要监控的文件
+}
+```
+
 ## 插件
 - html-webpack-plugin 将打包的js文件引入html
 - mini-css-extract-plugin 将css抽离成单独文件
 - clean-webpack-plugin 删除dist之后再打包生成新的dist
-- copy-webpack-plugin
+- copy-webpack-plugin 将一些静态的资源文件放入打包后的文件中
+- banner-plugin 在打包好的js文件中添加注释
+
+## 跨域
+```
+devServer: {
+	proxy: {
+		'/api': {
+			target: 'localhost:3000',
+			pathRewrite: {'/api': ''}
+		}
+	}
+}
+```
+
+## resolve
+解析第三方包
+```
+resolve: {
+	modules: [path.resolve('node_modules')],
+	alias: {
+		bootstrap: 'bootstrap/dist/css/bootstrap.css'
+	}
+}
+```
