@@ -104,7 +104,8 @@ watchOptions: { //监控选项
 - mini-css-extract-plugin 将css抽离成单独文件
 - clean-webpack-plugin 删除dist之后再打包生成新的dist
 - copy-webpack-plugin 将一些静态的资源文件放入打包后的文件中
-- banner-plugin 在打包好的js文件中添加注释
+- webpack: banner-plugin 在打包好的js文件中添加注释
+- webpack: define-plugin 定义环境变量，例如定义一个变量来区分dev和pro
 
 ## 跨域
 ```
@@ -128,3 +129,23 @@ resolve: {
 	}
 }
 ```
+
+## webpack-merge
+合并webpack.base.js、webpack.dev.js、webpack.pro.js
+
+## webpack优化点
+```
+module.exports = {
+	module: {
+		noParse: /jquery/, //不去解析jquery中的依赖库
+		rules: []
+	}
+}
+```
+
+webpack: ignore-plugin
+忽略引入的js文件，例如忽略moment里的语言包
+
+happypack
+实现多线程打包
+
