@@ -149,3 +149,30 @@ webpack: ignore-plugin
 happypack
 实现多线程打包
 
+## 代码抽取公共部分
+```
+module.exports = {
+	optimization: {
+		splitChunks: { //分隔代码块
+			cacheGroups: { //缓存组
+				common: { //公共模块
+					chunks: 'initial',
+					minSize: 0,
+					minChunks: 2
+				},
+				vendor: { //抽离第三方模块
+					priority: 1, //权重1
+					test: /node_modules/, //
+					chunks: 'initial',
+                    minSize: 0,
+                    minChunks: 2
+				]
+			}
+		}
+	}
+}
+```
+
+## 懒加载使用import()语法，本质上是jsonp
+
+## 热更新
