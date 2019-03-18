@@ -33,6 +33,11 @@ sum(2)(3)
 进程让程序之间的并发成为了可能，线程让进程内的子任务并发成为了可能。
 
 ## 模块
+首先，是 CommonJS 的提出，在 Node.js 以及 Webpack 都支持 CommonJS，它规定了一个文件就是一个模块，文件内部定义的变量属于这个模块，不会对外暴露从而污染全局变量的规则。在 CommonJS 中，通过 exports 或者 module.exports 进行导出，通过 require 进行 同步加载 所需要依赖的模块。由于它是同步加载模块的形式，所以比较通用于服务器端。  
+然后，根据 CommonJS 只能同步加载的问题，AMD 根据浏览器的特性，进行了非同步加载模块的提出。同时，AMD 有个问题，就是在使用 require.js 的时候，必须提前加载所有模块。  
+接着，根据 AMD 的问题，CMD 提出来了：通过按需加载的形式，哪里需要就调用哪里，而不用等到所有的模块都加载了再解析。  
+最后，ECMA 国际推出了 ES6 的 modules。在 ES6 中，通过 export 关键字导出模块，通过 import 关键字引用代码。当然，由于浏览器厂商诸多，ES6 在浏览器的尚不支持，目前主流做法是先将 ES6 通过 babel 编译成 require。  
+
 - CommonJS(node | require / module.exports / exports)：同步
 - AMD： 异步，依赖前置，js可以方便知道依赖模块是谁，立即加载
 - CMD： 异步，依赖就近，用的时候再require
