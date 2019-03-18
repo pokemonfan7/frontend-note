@@ -1,5 +1,5 @@
 ## target blank
-```<a href="www.baidu.com" target="_blank" rel="noopener norefferrer" >```
+```<a href="www.baidu.com" target="_blank" rel="noopener norefferrer" >```  
 如果不加上`rel`，打开的新标签有操作原标签页的权限
 
 ## html加载顺序
