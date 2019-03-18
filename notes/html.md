@@ -1,3 +1,7 @@
+## target blank
+```<a href="www.baidu.com" target="_blank" rel="noopener norefferrer" >```
+如果不加上`rel`，打开的新标签有操作原标签页的权限
+
 ## html加载顺序
 - js会阻塞后续dom和资源的加载  
 原因：GUI渲染线程与JS引擎线程是互斥的，当JS引擎执行时GUI线程会被挂起，GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行。
