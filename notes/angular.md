@@ -1,3 +1,15 @@
+## rxjs实践
+switchMap: 当一个subscribe依赖上一个subscribe返回的结果时使用，避免嵌套  
+```javascript
+this.snValue$.pipe(
+    debounceTime(500),
+    filter(res => !!res),
+    switchMap(res => this.snSearchService.getSearchSn(res))
+).subscribe(snList => {
+    this.snList = snList
+})
+```
+
 ## TrackBy
 ngFor中可以控制视图重新渲染
 
