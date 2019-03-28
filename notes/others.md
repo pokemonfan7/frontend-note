@@ -1,3 +1,29 @@
+## 控制并发请求的个数
+```javascript
+function sendRequest(urls, max, callback) {
+  const len = urls.length;
+  let idx = 0;
+  let counter = 0;
+
+  function _request() {
+    // 有请求，有通道
+    while (idx < len && max > 0) {
+      max--; // 占用通道
+      fetch(urls[idx++]).finally(() => {
+        max++; // 释放通道
+        counter++;
+        if (counter === len) {
+          return callback();
+        } else {
+          _request();
+        }
+      });
+    }
+  }
+  _request();
+}
+```
+
 ## 微信小程序
 ```
 properties: {
