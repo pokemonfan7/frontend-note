@@ -1,3 +1,58 @@
+## console.log中的字符替换
+`console.log("Object value: %o with string substitution", {string: "str", number: 10});`
+将把`%o`替换为后面的对象  
+类似的还有：  
+- %o / %O - for objects;
+- %d / %i - for integers;
+- %s - for strings;
+- %f - for floating-point numbers;
+
+## console.group
+```javascript
+console.group();
+console.log("Inside 1st group");
+console.group();
+console.log("Inside 2nd group");
+console.groupEnd();
+console.groupEnd();
+console.log("Outer scope");
+```
+
+## console信息分组
+```javascript
+console.group();
+console.log("Inside 1st group");
+console.group();
+console.log("Inside 2nd group");
+console.groupEnd();
+console.groupEnd();
+console.log("Outer scope");
+```
+
+## console.count计数
+```javascript
+console.count(); // default: 1
+console.count(); // default: 2
+console.count(); // default: 3
+console.countReset();
+console.count(); // default: 1
+```
+
+## console.table
+`console.table([[0,1,2,3,4], [5,6,7,8,9]]);`  
+以列表的形式输出数组、类数组对象、对象,当列太多的时候，使用第二个参数，传入你想要展示的列对应的名字
+
+## console.dir
+输出DOM节点等
+
+## console.time
+查看代码执行时间，例如异步时间，可传入参数来记录多个间隔，例如:console.time('total')、console.timeEnd('total')
+
+## 给你的 console.log 加上 css 样式
+给你的打印文本加上 %c 然后 console.log 的第二个参数变成了... css 规则！  
+你可以利用这一点让你的日志脱颖而出(例如 Facebook在你打开 console的时候所做的一样)  
+`console.log('%ctext', 'color:green; background: yellow; font-size: 30px;')`
+
 ## $0
 在Chrome的Elements面板中，$0关联到当前我们选中的html节点。
 
@@ -25,15 +80,6 @@
 
 ## Copy HTML (最快的方式)
 HTML面板中可以使用`Ctrl`+`c`,或者点击DOM前面的省略号
-
-## console.table
-以列表的形式输出数组、类数组对象、对象,当列太多的时候，使用第二个参数，传入你想要展示的列对应的名字
-
-## console.dir
-输出DOM节点等
-
-## console.time()、console.timeEnd()
-查看代码执行时间，例如异步时间，可传入参数来记录多个间隔，例如:console.time('total')、console.timeEnd('total')
 
 ## 通过`h`隐藏DOM元素
 
@@ -75,11 +121,6 @@ console.log({name, job, age}) // {name: 'bob', job: 'teacher', age: 25}
 
 ## replay XHR requests (重新发送 XHR 的请求)
 network 右键XHR
-
-## 给你的 console.log 加上 css 样式
-给你的打印文本加上 %c 然后 console.log 的第二个参数变成了... css 规则！  
-你可以利用这一点让你的日志脱颖而出(例如 Facebook在你打开 console的时候所做的一样)
-`console.log('%ctext', 'color:green; background: yellow; font-size: 30px;')`
 
 ## Switch between 2 recent DevTools placements 在两个最近使用的 DevTools 的展示位置之间切换
 ctrl + shift + D (⌘ + shift + D Mac)
