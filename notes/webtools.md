@@ -20,13 +20,10 @@ console.log("Outer scope");
 
 ## console信息分组
 ```javascript
-console.group();
-console.log("Inside 1st group");
-console.group();
-console.log("Inside 2nd group");
-console.groupEnd();
-console.groupEnd();
-console.log("Outer scope");
+console.warn('黄色感叹号');
+console.error('红色报错');
+console.info('分组到info');
+console.debug('分组到debug');
 ```
 
 ## console.count计数
