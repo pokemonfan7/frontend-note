@@ -287,7 +287,9 @@ Person.prototype.isPrototypeOf(p1) // true
 Object.getPrototypeOf(p1) === Person.prototype // true
 ```
 
-## requestAnimationFrame实现回到顶部 (from`https://cuixote.gitee.io/`)
+## requestAnimationFrame实现回到顶部
+> https://cuixote.gitee.io/
+
 ```javascript
 // 匀速返回顶部
 function backToTop(interval = 500, element) {
