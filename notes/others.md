@@ -147,7 +147,11 @@ app.on('activate', () => {
 //全局安装 -g `electron`、`electron-packager`或者`electron-builder`(不推荐使用，引用本地文件会出现`Not allowed to load local resource`错误)
 //项目依赖 --save-dev
 ```
-## 分析打包内容
+
+## Webpack指南
+`https://webpack.docschina.org/guides/`
+
+## Webpack分析打包内容
 在`build`时加入`--stats-json`
 安装`webpack-bundle-analyzer`
 执行命令`"bundle-report": "webpack-bundle-analyzer dist/open-pages/stats.json"`
