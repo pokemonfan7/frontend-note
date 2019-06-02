@@ -444,6 +444,7 @@ ViewContainerRef：用于表示一个视图容器，可添加一个或多个视�
 1. `Angular`支持的 View(视图) 类型有哪几种？  
 Embedded Views - Template 模板元素  
 Host Views - Component 组件  
+这些是Angular中存在的唯一的视图类型，它们主要不同之处是由用于创建它们的输入数据决定。此外，嵌入视图只能附属于view container，而宿主视图可以附属到任何DOM元素（通常称为宿主元素)  
 
 - 如何创建`Embedded View`？  
 ```
