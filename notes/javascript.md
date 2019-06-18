@@ -1,3 +1,13 @@
+## 函数默认参数
+```javascript
+function say({name = "a"} = {}) {
+  console.log(name)
+}
+
+say() //a
+say({name: 'b'}) //b
+```
+
 ## 获取数组最后的元素
 数组的`slice()`方法可以接受负整数，并从数组的尾部开始获取元素。
 ```javascript
