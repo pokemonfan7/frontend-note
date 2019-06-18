@@ -1,3 +1,15 @@
+## 事件处理
+```javascript
+<div onclick="console.log('div')">
+  <p onclick="console.log('p')">
+    Click here!
+  </p>
+</div>
+//点击以后 p div
+```
+在事件传播期间，有三个阶段：捕获，目标和冒泡  
+默认情况下，事件处理程序在冒泡阶段执行（除非您将useCapture设置为true），它从最深的嵌套元素向外延伸
+
 ## 比较相等性
 在比较相等性，原始类型通过它们的值进行比较，而对象通过它们的引用进行比较。JavaScript检查对象是否具有对内存中相同位置的引用。  
 
