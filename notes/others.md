@@ -1,3 +1,6 @@
+## 图片懒加载
+使用新api：IntersectionObserver
+
 ## 控制并发请求的个数
 ```javascript
 function sendRequest(urls, max, callback) {
