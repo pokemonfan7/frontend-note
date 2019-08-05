@@ -1,5 +1,116 @@
 ## 图片懒加载
 使用新api：IntersectionObserver
+```javascript
+// angular
+import { isPlatformBrowser } from '@angular/common'
+import { Directive, ElementRef, Inject, Input, NgZone, OnDestroy, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core'
+
+@Directive({
+    selector: '[lazyloadImage]'
+})
+export class LazyloadImageDirective implements OnInit, OnDestroy {
+    @Input() intersectionObserverConfig: IntersectionObserverInit
+
+    intersectionObserver: IntersectionObserver
+    htmlElement: HTMLElement
+
+    constructor(
+      private elementRef: ElementRef,
+      private renderer: Renderer2,
+      private ngZone: NgZone,
+      @Inject(PLATFORM_ID) private platformId
+    ) {
+        this.htmlElement = this.elementRef.nativeElement
+    }
+
+    ngOnInit() {
+        if (!this.isBrowser()) {
+            return
+        }
+        this.ngZone.runOutsideAngular(() => this.init())
+    }
+
+    init() {
+        this.registerIntersectionObserver()
+
+        this.observeDOMChanges(this.htmlElement, () => {
+            const imagesFoundInDOM = this.getAllImagesToLazyLoad(this.htmlElement)
+            imagesFoundInDOM.forEach((image: HTMLElement) => this.intersectionObserver.observe(image))
+        })
+    }
+
+    registerIntersectionObserver() {
+        this.intersectionObserver = new IntersectionObserver(
+          images => images.forEach(image => this.onIntersectionChange(image)),
+          this.intersectionObserverConfig instanceof Object ? this.intersectionObserverConfig : undefined
+        )
+    }
+
+    onIntersectionChange(image) {
+        if (!image.isIntersecting) {
+            return
+        }
+
+        this.onImageAppearsInViewport(image.target)
+    }
+
+    observeDOMChanges(htmlElement: HTMLElement, onChange: Function) {
+        // Create a Mutation Observer instance
+        const observer = new MutationObserver(() => {
+            onChange()
+        })
+
+        // Observer Configuration
+        const observerConfig = {
+            attributes: true,
+            characterData: true,
+            childList: true,
+            subtree: true
+        }
+
+        // Observe Directive DOM Node
+        observer.observe(htmlElement, observerConfig)
+    }
+
+    getAllImagesToLazyLoad(pageNode: HTMLElement) {
+        return Array.from(pageNode.querySelectorAll('img[data-src], [data-srcset], [data-background-src]'))
+    }
+
+    ngOnDestroy() {
+        if (this.intersectionObserver) {
+            this.intersectionObserver.disconnect()
+        }
+    }
+
+    isBrowser(): boolean {
+        return isPlatformBrowser(this.platformId)
+    }
+
+    onImageAppearsInViewport(image) {
+        if (image.dataset.src) {
+            this.renderer.setAttribute(image, 'src', image.dataset.src)
+            this.renderer.removeAttribute(image, 'data-src')
+        }
+
+        if (image.dataset.srcset) {
+            this.renderer.setAttribute(image, 'srcset', image.dataset.srcset)
+            this.renderer.removeAttribute(image, 'data-srcset')
+        }
+
+        if (image.dataset.backgroundSrc) {
+            this.renderer.setStyle(image, 'background-image', `url(${image.dataset.backgroundSrc})`)
+            this.renderer.removeAttribute(image, 'data-background-src')
+        }
+
+        // Stop observing the current target
+        if (this.intersectionObserver) {
+            this.intersectionObserver.unobserve(image)
+        }
+    }
+
+}
+
+```
 
 ## 控制并发请求的个数
 ```javascript
