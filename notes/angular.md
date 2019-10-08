@@ -1,6 +1,13 @@
 ## ActivatedRoute & Router
-`ActivatedRoute`主要用于获取url里的参数，ex: `this.activatedRoute.snapshot.queryParamMap`  
-`Router`主要用于跳转子路由，ex: `this.router.navigate(['/recover'], { queryParams: { mobile: this.profile.mobile } })`
+`ActivatedRoute`主要用于获取url里的参数，ex:
+```
+this.activatedRoute.snapshot.queryParamMap.get('key')
+```
+
+`Router`主要用于跳转子路由，ex:
+```
+this.router.navigate(['/recover'], { queryParams: { mobile: this.profile.mobile } })
+```
 
 ## rxjs实践
 switchMap: 当一个subscribe依赖上一个subscribe返回的结果时使用，避免嵌套  
