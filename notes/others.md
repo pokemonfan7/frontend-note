@@ -32,6 +32,122 @@ a标签的href赋值为图片地址，只能起到预览的效果不能下载到
     image.src = src;
   }
 ```
+但是chorme浏览器下载图片时，有的图片，由于base64格式的图片太大，赋值给a标签点击时，会出现网络错误的情况，因此要将图片压缩后返回的base64赋值给a标签  
+```javascript
+// base64转成blob对象
+  function dataURLtoBlob (dataurl) {
+      const arr = dataurl.split(",");
+      const mime = arr[0].match(/:(.*?);/)[1];
+      const bstr = atob(arr[1]);
+      let n = bstr.length;
+      const u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new Blob([u8arr], { type: mime });
+    }
+    // blob对象转成base64
+  function blobToDataURL (blob, fn) {
+      const a = new FileReader();
+      a.readAsDataURL(blob); // 读取文件保存在result中
+      a.onload = function (e) {
+        const getRes = e.target.result; // 读取的结果在result中
+        fn(getRes);
+      };
+    }
+
+  // 压缩图片
+  function compress (fileParam, fn) {
+    // 判断浏览器是否支持blob,不支持就做兼容处理
+    if (!HTMLCanvasElement.prototype.toBlob) {
+      console.log("不支持toBlob");
+      Object.defineProperty(HTMLCanvasElement.prototype, "toBlob", {
+        value: function (callback, type, quality) {
+          const dataURL = this.toDataURL(type, quality).split(",")[1];
+          setTimeout(function () {
+            const binStr = atob(dataURL);
+            const len = binStr.length;
+            const arr = new Uint8Array(len);
+
+            for (let i = 0; i < len; i++) {
+              arr[i] = binStr.charCodeAt(i);
+            }
+
+            callback(new Blob([arr], { type: type || "image/png" }));
+          });
+        }
+      });
+    }
+    let file = fileParam;
+
+    // 如果传入的fileParam参数是base64格式的图片, 则先转化成为file对象
+    if (
+      Object.prototype.toString.call(file) !== "[object Blob]" &&
+      Object.prototype.toString.call(file) !== "[object File]" &&
+      file.startsWith("data:image")
+    ) {
+      file = dataURLtoBlob(file);
+    }
+
+    const img = new Image();
+    // 创建读取文件对象
+    const render = new FileReader();
+
+    // 准备画图
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+
+    if (file.type.indexOf("image") !== -1) {
+      // 读取file文件,得到的结果为base64位
+      render.readAsDataURL(file);
+    }
+
+    render.onload = function (result) {
+      // 把读取到的base64图片设置给img的src属性
+      const src = render.result;
+      img.src = src;
+    };
+
+    img.onload = function () {
+      // 加载完毕后获取图片的原始尺寸
+      /*eslint-disable */
+      const origin_width = this.width;
+      const origin_height = this.height;
+      // 设置最大允许宽高,根据需求自己设置,值越大,图片大小越大
+      const max_width = 400;
+      const max_height = 400;
+
+      // 最终宽高
+      let imgWidth = origin_width;
+      let imgHeight = origin_height;
+      if (origin_width > max_width || origin_height > max_height) {
+        if (origin_width / origin_height > max_width / max_height) {
+          // 更宽，按照宽度限定尺寸
+          imgWidth = max_width;
+          imgHeight = Math.round(max_width * (origin_height / origin_width));
+        } else {
+          imgHeight = max_height;
+          imgWidth = Math.round(max_height * (origin_width / origin_height));
+        }
+      }
+      canvas.width = imgWidth;
+      canvas.height = imgHeight;
+      context.drawImage(this, 0, 0, imgWidth, imgHeight);
+      // // 绘画到画布上
+      // context.drawImage(img, 0, 0, imgWidth, imgHeight);
+      // 此处得到的是blob对象,blob对象是在ie10及以上才兼容,在ios8_1_1上和iphoneSE上有兼容问题
+      canvas.toBlob(function(result) {
+        blobToDataURL(result, fn);
+      }, "image/png");
+    };
+  }
+```
+在compress的会fn回调中可以拿到压缩后的base64格式的图片，然后传入downloadIamge的src  
+```javascript
+compress(file, res => {
+    downloadIamge(res, '图片名称')
+})
+```
 
 ## VUE变化检测
 observer类：将一个正常的`object`转换成可观测的`object`，转化成响应式
