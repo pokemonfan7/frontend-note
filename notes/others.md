@@ -1,3 +1,38 @@
+## 前端点击按钮下载图片
+a标签的href赋值为图片地址，只能起到预览的效果不能下载到本地，所以要用到canvas.drawImage的方法将地址转化成base64格式，然后赋值给a标签后再点击  
+```javascript
+// 参数src为图片地址，name为下载时图片的名称
+  downloadIamge (src, name) {
+    var image = new Image();
+    // 解决跨域 Canvas 污染问题
+    image.setAttribute("crossOrigin", "anonymous");
+    image.onload = function () {
+      var canvas = document.createElement("canvas");
+      canvas.width = image.width;
+      canvas.height = image.height;
+
+      var context = canvas.getContext("2d");
+      context.drawImage(image, 0, 0, image.width, image.height);
+      var url = canvas.toDataURL("image/png");
+
+      // 生成一个a元素
+      var a = document.createElement("a");
+      // 创建一个单击事件
+      var event = new MouseEvent("click");
+
+      // 将a的download属性设置为我们想要下载的图片名称，若name不存在则使用‘下载图片名称’作为默认名称
+      a.download = name || "下载图片名称";
+      // 将生成的URL设置为a.href属性
+      a.href = url;
+
+      // 触发a的单击事件
+      a.dispatchEvent(event);
+    };
+
+    image.src = src;
+  }
+```
+
 ## VUE变化检测
 observer类：将一个正常的`object`转换成可观测的`object`，转化成响应式
 
