@@ -1,3 +1,17 @@
+## 事件代理
+```javascript
+document.addEventListener("click", function(e) {
+	var node = e.target;
+	while (node.parentNode.nodeName != "BODY") {
+		if (node.nodeName == "A") {
+			console.log("a");
+			break;
+		}
+		node = node.parentNode;
+	}
+}, false);
+```
+
 ## 前端点击按钮下载图片
 a标签的href赋值为图片地址，只能起到预览的效果不能下载到本地，所以要用到canvas.drawImage的方法将地址转化成base64格式，然后赋值给a标签后再点击  
 ```javascript
