@@ -1,3 +1,36 @@
+## 日期是这年的第几天
+```javascript
+dayOfYear(year, month, day) {
+    if (year === 0) {
+      throw Error('年份错误');
+    }
+    if (month < 1 || month > 12) {
+      throw Error('月份错误');
+    }
+    if (day < 1) {
+      throw Error('日期错误');
+    }
+    const monthsDay = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    if (year < 0) {
+      year ++;
+    }
+    // 判断是否为闰年
+    if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {
+      monthsDay[1] = 29;
+    }
+    if (day > monthsDay[month - 1]) {
+      throw Error('日期错误');
+    }
+    let count = 0;
+    monthsDay
+    .splice(0, month - 1)
+    .forEach(item => count = count + item);
+
+    return count + day;
+  }
+```
+
+
 ## 事件代理
 ```javascript
 document.addEventListener("click", function(e) {
