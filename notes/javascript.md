@@ -1,3 +1,30 @@
+## 面试题相关
+使用对象的键值不可重复的原理进行去重，赋值时也比双重循环判断值相不相等更快
+`
+{
+  1: {id: 1, name: '学生1'},
+  2: {id: 2, name: '学生2'},
+}
+`
+
+伪随机排序，将随机到的数交换到数组末尾
+`
+fakeRandom(arr) {
+    const len = arr.length;
+    let randomNum;
+    let k;
+    for (let i = len - 1; i > 0; i--) {
+      randomNum = Math.floor(Math.random() * (i + 1));
+      k = arr[i];
+      arr[i] = arr[randomNum];
+      arr[randomNum] = k;
+      console.log(i);
+    }
+
+    return arr;
+  }
+`
+
 ## 事件处理
 ```javascript
 <div onclick="console.log('div')">
