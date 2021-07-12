@@ -1,6 +1,6 @@
 ## 面试题相关
 使用对象的键值不可重复的原理进行去重，赋值时也比双重循环判断值相不相等更快
-`
+`javascript
 {
   1: {id: 1, name: '学生1'},
   2: {id: 2, name: '学生2'},
@@ -8,7 +8,7 @@
 `
 
 伪随机排序，将随机到的数交换到数组末尾
-`
+`javascript
 fakeRandom(arr) {
     const len = arr.length;
     let randomNum;
